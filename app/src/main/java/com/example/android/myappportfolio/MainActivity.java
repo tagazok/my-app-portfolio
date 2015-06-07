@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    private Toast mAppToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +51,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void displayToast(String txt) {
+        if(mAppToast !=null){
+            mAppToast.cancel();
+        }
+
         Context context = getApplicationContext();
         CharSequence text = "This button will launch my " + txt + " app!";
         int duration = Toast.LENGTH_SHORT;
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        mAppToast = Toast.makeText(context, text, duration);
+        mAppToast.show();
     }
 
     @Override
@@ -64,10 +70,6 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
